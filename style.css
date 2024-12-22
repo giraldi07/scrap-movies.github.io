@@ -1,0 +1,144 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #090909;
+    color: #dddddd;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Movie List Container */
+.movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: center;
+}
+
+/* Movie Item Card */
+.movie-item {
+    background-color: rgba(41, 41, 41, 0.307);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    overflow: hidden;
+    text-align: center;
+    flex: 1 1 calc(25% - 1rem); /* Default for Desktop: 4 columns */
+    max-width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.movie-item:hover {
+    transform: scale(1.05);
+}
+
+/* Movie Image */
+.movie-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Movie Details */
+.movie-details {
+    margin-top: 0.5rem;
+}
+
+.movie-details h3 {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
+
+.movie-details p {
+    font-size: 1rem;
+    margin: 0.3rem 0;
+}
+
+.watch-now {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.watch-now:hover {
+    background-color: #0056b3;
+}
+
+/* Responsiveness */
+
+/* Tablet Screens (2 columns) */
+@media (max-width: 1024px) {
+    .movie-item {
+        flex: 1 1 calc(33.33% - 1rem); /* 3 columns */
+    }
+
+    .movie-details h3 {
+        font-size: 1rem;
+    }
+
+    .watch-now {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.8rem;
+    }
+}
+
+/* Mobile Screens (3 columns) */
+@media (max-width: 768px) {
+    .movie-item {
+        flex: 1 1 calc(33.33% - 1rem); /* 3 columns */
+    }
+
+    .movie-details h3 {
+        font-size: 0.9rem;
+    }
+
+    .movie-details p {
+        font-size: 0.8rem;
+    }
+
+    .watch-now {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+    }
+}
+
+/* Small Mobile Screens (1 column) */
+@media (max-width: 430px) {
+    .movie-item {
+        flex: 1 1 calc(33.33% - 1rem); /* 3 columns */
+    }
+
+    .movie-details h3 {
+        font-size: 0.9rem;
+    }
+
+    .movie-details p {
+        font-size: 0.8rem;
+    }
+
+    .watch-now {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+    }
+}
