@@ -2,13 +2,13 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from flask import Flask, render_template
+from urllib.parse import urljoin
 
 app = Flask(__name__)
 
 # Fungsi untuk scraping data film
 def scrape_movies():
     url = "https://tv4.idlix.asia"  # Ganti dengan URL yang sesuai
-
     response = requests.get(url)
     movies = []
 
@@ -19,8 +19,8 @@ def scrape_movies():
         for movie in movie_items:
             title = movie.find('h3').get_text(strip=True)
             rating = movie.find('div', class_='rating').get_text(strip=True)
-            image_url = movie.find('img')['src']
-            link = movie.find('a')['href']
+            image_url = urljoin(url, movie.find('img')['src'])  # Pastikan absolute URL
+            link = urljoin(url, movie.find('a')['href'])        # Pastikan absolute URL
 
             movies.append({
                 'title': title,
@@ -35,6 +35,11 @@ def scrape_movies():
 def home():
     movies = scrape_movies()  # Ambil data film
     return render_template('index.html', movies=movies)
+
+@app.after_request
+def set_response_headers(response):
+    response.headers["Permissions-Policy"] = "interest-cohort=()"
+    return response
 
 if __name__ == "__main__":
     # Ekspor halaman ke file HTML statis
