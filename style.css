@@ -126,7 +126,7 @@ footer {
 /* Small Mobile Screens (1 column) */
 @media (max-width: 430px) {
     .movie-item {
-        flex: 1 1 calc(33.33% - 1rem); /* 3 columns */
+        flex: 1 1 100%; /* 1 column */
     }
 
     .movie-details h3 {
