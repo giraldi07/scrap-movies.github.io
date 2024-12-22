@@ -1,4 +1,4 @@
-import time
+import os
 import requests
 from bs4 import BeautifulSoup
 from flask import Flask, render_template
@@ -21,25 +21,14 @@ def scrape_movies():
             rating = movie.find('div', class_='rating').get_text(strip=True)
             image_url = movie.find('img')['src']
             link = movie.find('a')['href']
-            video_url = movie.find('a')['href']  # Ganti dengan cara ambil video URL jika tersedia
-
-            # Tambahkan logika untuk elemen 'owl-item'
-            # Asumsi: 'owl-item' adalah elemen yang berada di sekitar elemen movie
-            owl_item = movie.find_parent('div', class_='owl-item')  # Menemukan parent dengan class 'owl-item'
-            category = None
-            if owl_item:
-                category = owl_item.get_text(strip=True)  # Ambil teks kategori, jika ada
 
             movies.append({
                 'title': title,
                 'rating': rating,
                 'image_url': image_url,
-                'link': link,
-                'video_url': video_url,  # Menyimpan URL video langsung
-                'category': category  # Menyimpan kategori dari 'owl-item'
+                'link': link
             })
 
-    
     return movies
 
 @app.route('/')
@@ -48,4 +37,14 @@ def home():
     return render_template('index.html', movies=movies)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Ekspor halaman ke file HTML statis
+    movies = scrape_movies()
+    rendered_html = render_template('index.html', movies=movies)
+
+    # Simpan file statis
+    output_dir = "static_site"
+    os.makedirs(output_dir, exist_ok=True)
+    with open(os.path.join(output_dir, "index.html"), "w", encoding="utf-8") as f:
+        f.write(rendered_html)
+
+    print(f"Static site exported to {output_dir}/index.html")
