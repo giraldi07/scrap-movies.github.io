@@ -2,7 +2,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from flask import Flask, render_template
-from urllib.parse import urljoin
+from urllib.parse import urljoin  # Tambahkan urljoin
 
 app = Flask(__name__)
 
@@ -38,7 +38,7 @@ def home():
 
 @app.after_request
 def set_response_headers(response):
-    response.headers["Permissions-Policy"] = "interest-cohort=()"
+    response.headers["Permissions-Policy"] = "interest-cohort=()"  # Tambahkan ini
     return response
 
 if __name__ == "__main__":
